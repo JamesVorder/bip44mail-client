@@ -1,0 +1,19 @@
+{
+  "name": "bitter-mail",
+  "version": "1.0.0",
+  "description": "A client-side javascript application that allows users to create categorized and monitored email addresses for use online.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesVorder/bitter-mail.git"
+  },
+  "author": "NickNack",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesVorder/bitter-mail/issues"
+  },
+  "homepage": "https://github.com/JamesVorder/bitter-mail#readme"
+}
