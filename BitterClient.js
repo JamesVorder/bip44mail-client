@@ -3,6 +3,8 @@ var fs = require('fs');
 
 var BitterClient = {};
 
+BitterClient.keystore = new lightwallet.keystore;
+
 BitterClient.generateNew12Words = function(){
     return lightwallet.keystore.generateRandomSeed();
 };
@@ -13,25 +15,28 @@ BitterClient.CreateKeystore = function(words, password, callback){
         seedPhrase: words,
         hdPathString: "m/44'/60'/0'/0"
     }, function(err, ks){
-        if(err) console.log(err);
-        // Some methods will require providing the `pwDerivedKey`,
-        // Allowing you to only decrypt private keys on an as-needed basis.
-        // You can generate that value with this convenient method:
-        ks.keyFromPassword(password, function (err, pwDerivedKey) {
-            if (err) throw err;
+        if(err) callback(err, undefined);
+        BitterClient.keystore = ks;
+        callback(undefined, ks);
+    });
+};
 
-            // generate five new address/private key pairs
-            // the corresponding private keys are also encrypted
-            ks.generateNewAddress(pwDerivedKey, 2);
-            var filepath = './keystore';
-            fs.closeSync(fs.openSync(filepath, 'a'));
-            fs.writeFile(filepath, ks.serialize(), function(err){
-                if(err){
-                    callback(err, undefined);
-                }
-                callback(undefined, filepath);
-            });
-        });
+BitterClient.ExportKeystoreToPath = function(path, callback){
+    var filepath = path;
+    fs.closeSync(fs.openSync(filepath, 'a'));
+    fs.writeFile(filepath, BitterClient.keystore.serialize(), function(err){
+        if(err){
+            callback(err, undefined);
+        }
+        callback(undefined, filepath);
+    });
+};
+
+BitterClient.OpenKeystoreFromPath = function(path, callback){
+    fs.readFile(path, 'utf8', function(err, data) {
+        if (err) callback(err, undefined);
+        BitterClient.keystore = lightwallet.keystore.deserialize(data);
+        callback(undefined, BitterClient.keystore);
     });
 };
 
