@@ -40,4 +40,11 @@ BitterClient.OpenKeystoreFromPath = function(path, callback){
     });
 };
 
+BitterClient.addAddress = function(password){
+    BitterClient.keystore.keyFromPassword(password, function (err, pwDerivedKey) {
+        if (err) throw err;
+        return BitterClient.keystore.generateNewAddress(pwDerivedKey, 1);
+    });
+};
+
 module.exports = BitterClient;
