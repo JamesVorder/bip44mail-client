@@ -1,4 +1,4 @@
-var bc = require('../BitterClient');
+var bc = require('../lib/BitterClient');
 
 bc.CreateKeystore(bc.generateNew12Words(), "toor", function(err, ks){
     if(err){
