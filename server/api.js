@@ -1,6 +1,15 @@
 var api = {};
 
-api.create_address = function(addr, payment_addr, callback){
+api.get_mail = function(pub_key, candidate_addr){
+    var addr = new Address(candidate_addr, pub_key);
+    if(addr.isValid()){
+        //return the emails (encrypted with the provided public key)
+    } else{
+        //kick
+    }
+};
+
+api.create_inbox = function(addr, payment_addr, callback){
     //TODO: add real logic
     //add {addr, payment_addr} to pending DB
     //add listener for payment_addr transactions
