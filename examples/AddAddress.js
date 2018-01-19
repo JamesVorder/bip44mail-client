@@ -1,6 +1,6 @@
 var bc = require('../lib/BitterClient');
 
-bc.OpenKeystoreFromPath('keystore', function(err, ks){
+bc.OpenKeystoreFromPath('./keystore', function(err, ks){
     if(err) console.log(err);
     else{
         bc.addAddress("toor", ks, function(err, newKeyStore){
