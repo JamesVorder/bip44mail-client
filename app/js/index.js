@@ -7,4 +7,4 @@ btnCreateKeytore.addEventListener('click', function(event){
 });
 btnOpenKeystore.addEventListener('click', function(event){
     ipc.send('open-keystore-dialog');
-})
+});

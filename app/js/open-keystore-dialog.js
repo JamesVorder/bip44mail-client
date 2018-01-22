@@ -6,5 +6,5 @@ fileManagerBtn.addEventListener('click', function(event){
 });
 
 ipc.on('selected-file', function (event, path) {
-    document.getElementById('selected-file').innerHTML = "You selected: " + path;
+    document.getElementById('selected-file').setAttribute('value', path);
 });
