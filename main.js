@@ -18,8 +18,8 @@ var createWindow = function(){
     mainWindow = new BrowserWindow({
         frame: true,
         resizable: true,
-        height: 800,
-        width: 1000
+        height: 500,
+        width: 500
     });
 
     // Emitted when the window is closed.
