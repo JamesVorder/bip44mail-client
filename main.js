@@ -53,7 +53,7 @@ app.on('activate', function () {
 
 //<editor-fold desc='Application Code'>
 ipc.on('create-keystore-dialog', function (event) {
-  mainWindow.loadURL('FILE://' + __dirname + '/app/create-keystore-dialog.html');
+  mainWindow.loadURL('FILE://' + __dirname + '/app/create-keystore-dialog.pug');
   mainWindow.webContents.on('did-finish-load', function () {
     mainWindow.webContents.send('generate12Words', bc.generateNew12Words());
   });
