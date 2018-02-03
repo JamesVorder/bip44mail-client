@@ -11,6 +11,7 @@ var ipc = require('electron').ipcMain;
 var dialog = require('electron').dialog;
 var bc = require('./lib/BitterClient');
 var fs = require('fs');
+var pug = require('electron-pug')({pretty: true});
 
 var mainWindow = null;
 
@@ -27,7 +28,7 @@ var createWindow = function () {
     mainWindow = null;
   });
 
-  mainWindow.loadURL('file://' + __dirname + '/app/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/app/index.pug');
 };
 
 app.on('ready', createWindow);

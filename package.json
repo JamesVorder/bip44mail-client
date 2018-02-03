@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/JamesVorder/bitter-mail#readme",
   "dependencies": {
+    "electron-pug": "^1.5.1",
     "eth-lightwallet": "^3.0.1",
     "ethereumjs-util": "^5.1.3",
     "http": "0.0.0"
