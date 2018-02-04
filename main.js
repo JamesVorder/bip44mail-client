@@ -60,7 +60,7 @@ ipc.on('create-keystore-dialog', function (event) {
 });
 
 ipc.on('open-keystore-dialog', function (event) {
-  mainWindow.loadURL('FILE://' + __dirname + '/app/open-keystore-dialog.html');
+  mainWindow.loadURL('FILE://' + __dirname + '/app/open-keystore-dialog.pug');
 });
 
 ipc.on('open-file-dialog', function (event) {
