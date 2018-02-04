@@ -11,6 +11,7 @@ var ipc = require('electron').ipcMain;
 var dialog = require('electron').dialog;
 var bc = require('./lib/BitterClient');
 var fs = require('fs');
+var pug = require('electron-pug')({pretty: true});
 
 var mainWindow = null;
 
@@ -27,7 +28,7 @@ var createWindow = function () {
     mainWindow = null;
   });
 
-  mainWindow.loadURL('file://' + __dirname + '/app/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/app/index.pug');
 };
 
 app.on('ready', createWindow);
@@ -52,14 +53,14 @@ app.on('activate', function () {
 
 //<editor-fold desc='Application Code'>
 ipc.on('create-keystore-dialog', function (event) {
-  mainWindow.loadURL('FILE://' + __dirname + '/app/create-keystore-dialog.html');
+  mainWindow.loadURL('FILE://' + __dirname + '/app/create-keystore-dialog.pug');
   mainWindow.webContents.on('did-finish-load', function () {
     mainWindow.webContents.send('generate12Words', bc.generateNew12Words());
   });
 });
 
 ipc.on('open-keystore-dialog', function (event) {
-  mainWindow.loadURL('FILE://' + __dirname + '/app/open-keystore-dialog.html');
+  mainWindow.loadURL('FILE://' + __dirname + '/app/open-keystore-dialog.pug');
 });
 
 ipc.on('open-file-dialog', function (event) {
