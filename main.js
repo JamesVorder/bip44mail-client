@@ -9,11 +9,14 @@ var app = require('electron').app;
 var BrowserWindow = require('electron').BrowserWindow;
 var ipc = require('electron').ipcMain;
 var dialog = require('electron').dialog;
-var bc = require('./lib/BitterClient');
+var Client = require('./lib/client');
+var utils = require('./lib/utils');
 var fs = require('fs');
+var request = require('request');
 var pug = require('electron-pug')({pretty: true});
 
 var mainWindow = null;
+var cli = new Client();
 
 var createWindow = function () {
   mainWindow = new BrowserWindow({
@@ -55,12 +58,16 @@ app.on('activate', function () {
 ipc.on('create-keystore-dialog', function (event) {
   mainWindow.loadURL('FILE://' + __dirname + '/app/create-keystore-dialog.pug');
   mainWindow.webContents.on('did-finish-load', function () {
-    mainWindow.webContents.send('generate12Words', bc.generateNew12Words());
+    mainWindow.webContents.send('generate12Words', utils.generateNew12Words());
   });
 });
 
 ipc.on('open-keystore-dialog', function (event) {
   mainWindow.loadURL('FILE://' + __dirname + '/app/open-keystore-dialog.pug');
+});
+
+ipc.on('send-mail', function (event) {
+    mainWindow.loadURL('FILE://' + __dirname + '/app/send-mail.pug');
 });
 
 ipc.on('open-file-dialog', function (event) {
@@ -74,7 +81,7 @@ ipc.on('open-file-dialog', function (event) {
 });
 
 ipc.on('OpenKeystoreFromPath', function (event, path) {
-  bc.OpenKeystoreFromPath(path, function (err, data) {
+  cli.OpenKeystoreFromPath(path, function (err, data) {
     if (err) {
       event.sender.send('OpenKeystoreFromPath-error', err)
     }
@@ -83,7 +90,7 @@ ipc.on('OpenKeystoreFromPath', function (event, path) {
 });
 
 ipc.on('CreateKeystore', function (event, pass) {
-  bc.CreateKeystore(bc.generateNew12Words(), pass, function (err, data) {
+  cli.CreateKeystore(utils.generateNew12Words(), pass, function (err, data) {
     if (err) {
       event.sender.send('CreateKeystore-error', err);
     }
@@ -106,5 +113,9 @@ ipc.on('CreateKeystore', function (event, pass) {
     }
     event.sender.send('CreateKeystore-success', data);
   });
+});
+
+ipc.on('SendMessage', function(event, to, from_addr, subject, message, password){
+    cli.SendMail(to, from_addr, subject, message, password);
 });
 //</editor-fold>

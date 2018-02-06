@@ -1,0 +1,21 @@
+doctype html
+html
+    include includes/head
+    body
+        div.pure-g
+            include includes/navigation
+            div.pure-u-1-1
+                h2 Send Mail
+                form(action="sendMail").pure-form.pure-form-stacked
+                    fieldset
+                        legend(style="color:red; font-style: italic;") Be careful! Anyone you send mail to could leak your email address.
+                        label(for="from") From
+                        input#from
+                        label(for="to") To
+                        input#to
+                        label(for="subject") Subject
+                        input#subject
+                        textarea#messageBody(style="width:100%; rows:15; border:1px black;")
+                        input#password(type="password" placeholder="password")
+                        button.pure-button.pure-button-primary#submit(type="button") Send
+    script(type="text/javascript" src="./js/send-mail.js")
