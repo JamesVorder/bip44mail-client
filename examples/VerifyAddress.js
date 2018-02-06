@@ -1,4 +1,4 @@
-var bc = require('../lib/BitterClient');
+var bc = require('../lib/client');
 var request = require('request');
 
 var verifyAddress = function (signature, msg, addr) {

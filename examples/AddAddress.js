@@ -1,4 +1,4 @@
-var bc = require('../lib/BitterClient');
+var bc = require('../lib/client');
 
 bc.OpenKeystoreFromPath('./keystore', function (err, ks) {
   if (err) {
