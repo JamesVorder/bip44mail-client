@@ -5,7 +5,6 @@ fileManagerBtn.addEventListener('click', function(event){
     ipc.send('open-file-dialog');
 });
 
-//NOTE: You can listen to events in the renderer like this...
 ipc.on('selected-file', function (event, path) {
     document.getElementById('selected-file').setAttribute('value', path);
     ipc.send('OpenKeystoreFromPath', path);

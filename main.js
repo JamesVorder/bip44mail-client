@@ -66,9 +66,15 @@ ipc.on('open-keystore-dialog', function (event) {
   mainWindow.loadURL('FILE://' + __dirname + '/app/open-keystore-dialog.pug');
 });
 
-ipc.on('send-mail', function (event) {
-    mainWindow.loadURL('FILE://' + __dirname + '/app/send-mail.pug');
-});
+ipc.on('createAddress', function(event, password){
+  cli.addAddress(password, function(err, data){
+    if(err){
+      event.sender.send('createAddress-error', err);
+    } else{
+      event.sender.send('createAddress-success', data);
+    }
+  });
+})
 
 ipc.on('open-file-dialog', function (event) {
   dialog.showOpenDialog(mainWindow, {
@@ -85,7 +91,10 @@ ipc.on('OpenKeystoreFromPath', function (event, path) {
     if (err) {
       event.sender.send('OpenKeystoreFromPath-error', err)
     }
-    else event.sender.send("OpenKeystoreFromPath-success", data);
+    else {
+      cli = new Client(data);
+      event.sender.send("OpenKeystoreFromPath-success", data);
+    }
   });
 });
 

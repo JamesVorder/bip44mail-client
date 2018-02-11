@@ -1,0 +1,20 @@
+doctype html
+html
+    include includes/head
+    body
+        div.pure-g
+            include includes/navigation
+            div.pure-u-1-1
+                h2 Your Addresses
+                    ul#addresses
+            div.pure-u-1-1
+                h2 Create Address
+                form(action="createAddress").pure-form.pure-form-stacked
+                    fieldset
+                        label(for="password") Password
+                        input#password(type='password')
+                        button.pure-button.pure-button-primary#submit(type="button") Create Address
+        div.pure-g
+            div.pure-u-1-1
+                span#output
+    script(type="text/javascript" src="./js/create-address.js")
