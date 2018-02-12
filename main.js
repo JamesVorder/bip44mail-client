@@ -137,6 +137,10 @@ ipc.on('CreateKeystore', function (event, pass) {
   });
 });
 
+ipc.on('GetAddresses', function(event){
+  event.sender.send('RefreshAddressList', cli.getAddresses());
+})
+
 ipc.on('SendMessage', function(event, to, from_addr, subject, message, password){
     cli.SendMail(to, from_addr, subject, message, password);
 });
