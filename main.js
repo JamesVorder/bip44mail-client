@@ -16,7 +16,7 @@ var request = require('request');
 var pug = require('electron-pug')({pretty: true});
 
 var mainWindow = null;
-var cli = new Client();
+var cli;
 
 var createWindow = function () {
   mainWindow = new BrowserWindow({
@@ -87,15 +87,28 @@ ipc.on('open-file-dialog', function (event) {
 });
 
 ipc.on('OpenKeystoreFromPath', function (event, path) {
-  cli.OpenKeystoreFromPath(path, function (err, data) {
+  utils.OpenKeystoreFromPath(path, function(err, data){
     if (err) {
       event.sender.send('OpenKeystoreFromPath-error', err)
     }
     else {
-      cli = new Client(data);
+      cli = new Client(data, path);
       event.sender.send("OpenKeystoreFromPath-success", data);
     }
   });
+});
+
+ipc.on('SaveKeystore', function(event, new_path){
+  if(cli){
+    utils.ExportKeystoreToPath(new_path? new_path : cli.path, cli.keystore, function(err, data){
+      if(err){
+        event.sender.send("SaveKeystore-error", err);
+      }
+      else{
+        event.sender.send("SaveKeystore-success", data);
+      }
+    });
+  }
 });
 
 ipc.on('CreateKeystore', function (event, pass) {

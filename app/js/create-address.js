@@ -11,6 +11,7 @@ submit.addEventListener('click', function(event){
 ipc.on('createAddress-success', function(event, data){
   output.innerText = data;
   output.setAttribute('style', 'color:green;');
+  ipc.send('SaveKeystore');
 });
 
 ipc.on('createAddress-error', function(event, err){
