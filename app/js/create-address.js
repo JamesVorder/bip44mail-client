@@ -13,8 +13,6 @@ submit.addEventListener('click', function(event){
 });
 
 ipc.on('createAddress-success', function(event, data){
-  //output.innerText = data;
-  //output.setAttribute('style', 'color:green;');
   refreshAddressList(data);
   ipc.send('SaveKeystore');
 });
@@ -29,10 +27,8 @@ ipc.on('RefreshAddressList', function(event, addresses){
 });
 
 var refreshAddressList = function(addresses){
+  document.getElementById('addresses').innerHTML = '';
   for(var i in addresses){
-    // var node = document.createElement("LI");                 // Create a <li> node
-    // var textnode = document.createTextNode("Water");         // Create a text node
-    // node.appendChild(textnode);
     var node = document.createElement('li');
     var text = document.createTextNode(addresses[i]);
     node.appendChild(text);
