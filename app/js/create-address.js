@@ -1,6 +1,8 @@
 var ipc = require('electron').ipcRenderer;
 var fs = require('fs');
 
+var password;
+
 window.onload = function(){
   ipc.send('GetAddresses');
 }
@@ -8,13 +10,14 @@ window.onload = function(){
 var submit = document.getElementById('submit');
 var output = document.getElementById('output');
 submit.addEventListener('click', function(event){
-  var password = document.getElementById('password').value;
+  password = document.getElementById('password').value;
   ipc.send('createAddress', password);
 });
 
 ipc.on('createAddress-success', function(event, data){
   refreshAddressList(data);
   ipc.send('SaveKeystore');
+  ipc.send('CreateInbox', data[data.length - 1], password);
 });
 
 ipc.on('createAddress-error', function(event, err){

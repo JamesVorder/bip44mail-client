@@ -151,4 +151,14 @@ ipc.on('SendMessage', function(event, to, from_addr, subject, message, password)
     }
   });
 });
+
+ipc.on('CreateInbox', function(event, address, password){
+  cli.signMessage(address, password, address, function(err, data){
+    if(err) {
+      console.log("Error: " + err);
+    } else{
+      cli.registerAddress(data, address);
+    }
+  })
+});
 //</editor-fold>
