@@ -144,6 +144,23 @@ ipc.on('GetAddresses', function(event){
 })
 
 ipc.on('SendMessage', function(event, to, from_addr, subject, message, password){
-    cli.SendMail(to, from_addr, subject, message, password);
+  cli.signMessage(message, password, from_addr, function(err, sig){
+    if(err){
+      console.log("Error: " + err);
+    }
+    else{
+      cli.SendMail(to, from_addr, subject, message, sig);
+    }
+  });
+});
+
+ipc.on('CreateInbox', function(event, address, password){
+  cli.signMessage(address, password, address, function(err, data){
+    if(err) {
+      console.log("Error: " + err);
+    } else{
+      cli.registerAddress(data, address);
+    }
+  })
 });
 //</editor-fold>

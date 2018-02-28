@@ -18,6 +18,6 @@ ipc.on('OpenKeystoreFromPath-error', function(event, err){
 
 ipc.on('OpenKeystoreFromPath-success', function(event, data){
     var out = document.getElementById('output');
-    out.innerText = JSON.stringify(data);
-    out.setAttribute('style', '');
+    out.innerText = 'Success!';//JSON.stringify(data);
+    out.setAttribute('style', 'color: green;');
 });
