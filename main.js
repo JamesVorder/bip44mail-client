@@ -111,31 +111,33 @@ ipc.on('SaveKeystore', function(event, new_path){
   }
 });
 
-ipc.on('CreateKeystore', function (event, pass) {
-  cli.CreateKeystore(utils.generateNew12Words(), pass, function (err, data) {
+ipc.on('CreateKeystore', (function (event, pass) {
+  utils.CreateKeystore(utils.generateNew12Words(), pass, function (err, data)
+  {
     if (err) {
       event.sender.send('CreateKeystore-error', err);
     }
     else {
       dialog.showSaveDialog({
         filters: [
-          {name: 'bip44Mail-Vault', extensions: ['vault']}
+          {name: 'bip44Mail Vault', extensions: ['vault']}
         ]
-      }, function (fileName) {
+      }, (function (fileName) {
 
         if (fileName === undefined) {
           return;
         }
 
-        fs.writeFile(fileName, data.serialize(), function (err) {
-
-        });
-
-      });
+        fs.writeFile(fileName, data.serialize(), (function (err) {
+          if(!err){
+            cli = new Client(data, fileName);
+            event.sender.send('CreateKeystore-success', "Success!");
+          }
+        }).bind(this));
+      }).bind(this));
     }
-    event.sender.send('CreateKeystore-success', data);
   });
-});
+}).bind(this));
 
 ipc.on('GetAddresses', function(event){
   event.sender.send('RefreshAddressList', cli.getAddresses());

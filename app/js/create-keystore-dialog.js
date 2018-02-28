@@ -19,6 +19,6 @@ ipc.on('CreateKeystore-error', function(event, err){
 
 ipc.on('CreateKeystore-success', function(event, data){
     var out = document.getElementById('output');
-    out.innerText = JSON.stringify(data);
-    out.setAttribute('style', '');
+    out.innerText = data;
+    out.setAttribute('style', 'color:green;');
 });
