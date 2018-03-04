@@ -4,7 +4,8 @@ var fs = require('fs');
 var submitButton = document.getElementById('submit');
 submitButton.addEventListener('click', function(event){
     var pass = document.getElementById('txtPassword').value;
-    ipc.send('CreateKeystore', pass);
+    var words = document.getElementById('seedWords').value;
+    ipc.send('CreateKeystore', words, pass);
 });
 
 ipc.on('generate12Words', function(event, words){

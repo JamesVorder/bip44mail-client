@@ -111,8 +111,8 @@ ipc.on('SaveKeystore', function(event, new_path){
   }
 });
 
-ipc.on('CreateKeystore', (function (event, pass) {
-  utils.CreateKeystore(utils.generateNew12Words(), pass, function (err, data)
+ipc.on('CreateKeystore', (function (event, words, pass) {
+  utils.CreateKeystore(words, pass, function (err, data)
   {
     if (err) {
       event.sender.send('CreateKeystore-error', err);
