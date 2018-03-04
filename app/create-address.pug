@@ -9,11 +9,11 @@ html
                 ul#addresses
             div.pure-u-1-1
                 h2 Create Address
-                form(action="createAddress").pure-form.pure-form-stacked
+                form(onsubmit="createAddress(); return false;").pure-form.pure-form-stacked
                     fieldset
                         label(for="password") Password
                         input#password(type='password')
-                        button.pure-button.pure-button-primary#submit(type="button") Create Address
+                        button.pure-button.pure-button-primary#submit(type="submit") Create Address
         div.pure-g
             div.pure-u-1-1
                 span#output

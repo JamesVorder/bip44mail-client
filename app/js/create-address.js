@@ -7,13 +7,12 @@ window.onload = function(){
   ipc.send('GetAddresses');
 }
 
-var submit = document.getElementById('submit');
-var output = document.getElementById('output');
-submit.addEventListener('click', function(event){
+var createAddress = function(){
   password = document.getElementById('password').value;
   ipc.send('createAddress', password);
-});
+}
 
+var output = document.getElementById('output');
 ipc.on('createAddress-success', function(event, data){
   refreshAddressList(data);
   ipc.send('SaveKeystore');

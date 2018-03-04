@@ -1,12 +1,11 @@
 var ipc = require('electron').ipcRenderer;
 var fs = require('fs');
 
-var submitButton = document.getElementById('submit');
-submitButton.addEventListener('click', function(event){
-    var pass = document.getElementById('txtPassword').value;
-    var words = document.getElementById('seedWords').value;
-    ipc.send('CreateKeystore', words, pass);
-});
+var createKeystore = function(){
+  var pass = document.getElementById('txtPassword').value;
+  var words = document.getElementById('seedWords').value;
+  ipc.send('CreateKeystore', words, pass);
+}
 
 ipc.on('generate12Words', function(event, words){
     document.getElementById('seedWords').value = words;
