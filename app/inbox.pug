@@ -1,0 +1,14 @@
+doctype html
+html
+    include includes/head
+    body
+        .pure-g
+            include includes/navigation
+            .pure-u-1-1
+                h1 Inbox
+                form(onsubmit="refreshInbox(); return false;").pure-form
+                    legend Enter your password to retrieve mail
+                    input#txtPassword(type="password" placeholder="Password")
+                    button.pure-button.pure-button-primary(type="submit") Submit
+            ol#messages
+    script(type="text/javascript" src="./js/inbox.js")

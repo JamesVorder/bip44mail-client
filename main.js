@@ -163,4 +163,15 @@ ipc.on('CreateInbox', function(event, address, password){
     }
   })
 });
+
+ipc.on('GetMail', function(event, password){
+  cli.getMail(password, function(err, data){
+    if(err){
+      console.log("Error: " + err);
+    } else{
+      console.log("Success: " + data);
+      event.sender.send('GotMail', data.body);
+    }
+  });
+});
 //</editor-fold>
