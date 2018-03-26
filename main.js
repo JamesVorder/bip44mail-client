@@ -67,13 +67,14 @@ ipc.on('open-keystore-dialog', function (event) {
 });
 
 ipc.on('createAddress', function(event, password){
-  cli.addAddress(password, function(err, data){
-    if(err){
-      event.sender.send('createAddress-error', err);
-    } else{
-      event.sender.send('createAddress-success', data);
-    }
-  });
+  cli.deployInbox("Testing 123");
+  // cli.addAddress(password, function(err, data){
+  //   if(err){
+  //     event.sender.send('createAddress-error', err);
+  //   } else{
+  //     event.sender.send('createAddress-success', data);
+  //   }
+  // });
 })
 
 ipc.on('open-file-dialog', function (event) {
