@@ -10,7 +10,9 @@ html
                     fieldset
                         legend(style="color:red; font-style: italic;") Be careful! Anyone you send mail to could leak your email address.
                         label(for="from") From
-                        input#from
+                        img(src="./img/menu.png" style="width:25px" onclick='showMenu()')
+                        ul#menu(style="display:none" onmouseout="hideMenu()")
+                        input#from(disabled)
                         label(for="to") To
                         input#to
                         label(for="subject") Subject
